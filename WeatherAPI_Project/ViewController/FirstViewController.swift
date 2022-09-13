@@ -17,7 +17,6 @@ class FirstViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.rowHeight = 100
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
@@ -38,6 +37,7 @@ class FirstViewController: UIViewController {
         self.view.addSubview(tableView)
     }
     func setupLayout() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -74,7 +74,9 @@ extension FirstViewController: UITableViewDataSource {
 
 extension FirstViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        self.present(SecondViewController(), animated: true)
+        let secondVC = SecondViewController()
+        secondVC.cityWeatherData = cityWeatherDatas[indexPath.row]
+        secondVC.cityWeatherImage = cityWeatherImages[indexPath.row]
+        self.present(secondVC, animated: true)
     }
 }
