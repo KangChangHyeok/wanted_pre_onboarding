@@ -12,9 +12,9 @@ class SecondViewController: UIViewController {
     //MARK: - property
     private lazy var weatherImage: UIImageView = {
         let weatherImage = UIImageView(image: cityWeatherImage)
+        weatherImage.translatesAutoresizingMaskIntoConstraints = false
         return weatherImage
     }()
-    
     private lazy var cityName: UILabel = {
        let cityName = UILabel()
         cityName.text = cityWeatherData?.name
@@ -24,7 +24,6 @@ class SecondViewController: UIViewController {
         cityName.numberOfLines = 0
         return cityName
     }()
-    
     private lazy var weatherDescription: UILabel = {
         let weatherDescription = UILabel()
         weatherDescription.text = cityWeatherData?.weather?[0].weatherDescription
@@ -35,9 +34,9 @@ class SecondViewController: UIViewController {
         weatherDescription.numberOfLines = 0
         return weatherDescription
     }()
-    
     private lazy var titleStackView: UIStackView = {
         let titleStackView = UIStackView(arrangedSubviews: [cityName, weatherDescription])
+        titleStackView.translatesAutoresizingMaskIntoConstraints = false
         titleStackView.axis = .vertical
         titleStackView.alignment = .fill
         titleStackView.distribution = .fillEqually
@@ -46,6 +45,7 @@ class SecondViewController: UIViewController {
     }()
     private lazy var temp: UILabel = {
         let temp = UILabel()
+        temp.translatesAutoresizingMaskIntoConstraints = false
         temp.text = "온도"
         temp.font = UIFont.systemFont(ofSize: 30)
         temp.minimumScaleFactor = 0.1
@@ -53,7 +53,6 @@ class SecondViewController: UIViewController {
         temp.numberOfLines = 0
         return temp
     }()
-    
     private lazy var currentTemp: UILabel = {
         let currentTemp = UILabel()
         if let currentTempValue = cityWeatherData?.main?.temp {
@@ -65,7 +64,6 @@ class SecondViewController: UIViewController {
         currentTemp.numberOfLines = 0
         return currentTemp
     }()
-    
     private lazy var sensibleTemp: UILabel = {
         let sensibleTemp = UILabel()
         if let sensibleTempValue = cityWeatherData?.main?.feelsLike {
@@ -101,28 +99,29 @@ class SecondViewController: UIViewController {
     }()
     private lazy var tempStackView: UIStackView = {
         let tempStackView = UIStackView(arrangedSubviews: [currentTemp, sensibleTemp, highestTemp, minimumTemp])
+        tempStackView.translatesAutoresizingMaskIntoConstraints = false
         tempStackView.axis = .vertical
         tempStackView.alignment = .fill
         tempStackView.distribution = .equalSpacing
         tempStackView.spacing = 10
         return tempStackView
     }()
-    
     private lazy var currentHumidity: UILabel = {
-        let temp = UILabel()
-        temp.text = "현재습도"
-        temp.font = UIFont.systemFont(ofSize: 30)
-        temp.minimumScaleFactor = 0.1
-        temp.adjustsFontSizeToFitWidth = true
-        temp.numberOfLines = 0
-        return temp
+        let currentHumidity = UILabel()
+        currentHumidity.translatesAutoresizingMaskIntoConstraints = false
+        currentHumidity.text = "현재습도"
+        currentHumidity.font = UIFont.systemFont(ofSize: 30)
+        currentHumidity.minimumScaleFactor = 0.1
+        currentHumidity.adjustsFontSizeToFitWidth = true
+        currentHumidity.numberOfLines = 0
+        return currentHumidity
     }()
-    
     private lazy var currentHumidityValue: UILabel = {
         let currentHumidityLabel = UILabel()
         if let currentHumidityValue = cityWeatherData?.main?.humidity {
             currentHumidityLabel.text = String(currentHumidityValue) + "%"
         }
+        currentHumidityLabel.translatesAutoresizingMaskIntoConstraints = false
         currentHumidityLabel.font = UIFont.systemFont(ofSize: 20)
         currentHumidityLabel.minimumScaleFactor = 0.1
         currentHumidityLabel.adjustsFontSizeToFitWidth = true
@@ -131,6 +130,7 @@ class SecondViewController: UIViewController {
     }()
     private lazy var pressure: UILabel = {
         let pressure = UILabel()
+        pressure.translatesAutoresizingMaskIntoConstraints = false
         pressure.text = "기압"
         pressure.font = UIFont.systemFont(ofSize: 30)
         pressure.minimumScaleFactor = 0.1
@@ -138,12 +138,12 @@ class SecondViewController: UIViewController {
         pressure.numberOfLines = 0
         return pressure
     }()
-    
     private lazy var pressureValue: UILabel = {
         let pressureLabel = UILabel()
         if let pressureValue = cityWeatherData?.main?.pressure {
             pressureLabel.text = String(pressureValue) + " hPa"
         }
+        pressureLabel.translatesAutoresizingMaskIntoConstraints = false
         pressureLabel.font = UIFont.systemFont(ofSize: 20)
         pressureLabel.minimumScaleFactor = 0.1
         pressureLabel.adjustsFontSizeToFitWidth = true
@@ -152,6 +152,7 @@ class SecondViewController: UIViewController {
     }()
     private lazy var windSpeed: UILabel = {
         let windSpeed = UILabel()
+        windSpeed.translatesAutoresizingMaskIntoConstraints = false
         windSpeed.text = "풍속"
         windSpeed.font = UIFont.systemFont(ofSize: 30)
         windSpeed.minimumScaleFactor = 0.1
@@ -159,12 +160,12 @@ class SecondViewController: UIViewController {
         windSpeed.numberOfLines = 0
         return windSpeed
     }()
-    
     private lazy var windSpeedValue: UILabel = {
         let windSpeedLabel = UILabel()
         if let windSpeedValue = cityWeatherData?.main?.pressure {
             windSpeedLabel.text = String(windSpeedValue) + " Meter/second"
         }
+        windSpeedLabel.translatesAutoresizingMaskIntoConstraints = false
         windSpeedLabel.font = UIFont.systemFont(ofSize: 20)
         windSpeedLabel.minimumScaleFactor = 0.1
         windSpeedLabel.adjustsFontSizeToFitWidth = true
@@ -175,11 +176,14 @@ class SecondViewController: UIViewController {
     var cityWeatherImage: UIImage?
     
     //MARK: - override Method
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         setupLayout()
     }
+    
+    //MARK: - setup
     
     func setupView() {
         view.backgroundColor = .systemBackground
@@ -188,47 +192,39 @@ class SecondViewController: UIViewController {
         }
     }
     func setupLayout() {
-        weatherImage.translatesAutoresizingMaskIntoConstraints = false
-        weatherImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        weatherImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        weatherImage.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        weatherImage.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        
-        titleStackView.translatesAutoresizingMaskIntoConstraints = false
-        titleStackView.topAnchor.constraint(equalTo: weatherImage.topAnchor).isActive = true
-        titleStackView.leadingAnchor.constraint(equalTo: weatherImage.trailingAnchor).isActive = true
-        titleStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        titleStackView.bottomAnchor.constraint(equalTo: weatherImage.bottomAnchor).isActive = true
-        
-        temp.translatesAutoresizingMaskIntoConstraints = false
-        temp.topAnchor.constraint(equalTo: weatherImage.bottomAnchor, constant: 30).isActive = true
-        temp.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        tempStackView.translatesAutoresizingMaskIntoConstraints = false
-        tempStackView.topAnchor.constraint(equalTo: temp.bottomAnchor, constant: 10).isActive = true
-        tempStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-        
-        currentHumidity.translatesAutoresizingMaskIntoConstraints = false
-        currentHumidity.topAnchor.constraint(equalTo: tempStackView.bottomAnchor, constant: 30).isActive = true
-        currentHumidity.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        
-        currentHumidityValue.translatesAutoresizingMaskIntoConstraints = false
-        currentHumidityValue.topAnchor.constraint(equalTo: currentHumidity.bottomAnchor, constant: 10).isActive = true
-        currentHumidityValue.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-        
-        pressure.translatesAutoresizingMaskIntoConstraints = false
-        pressure.topAnchor.constraint(equalTo: currentHumidityValue.bottomAnchor, constant: 30).isActive = true
-        pressure.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-
-        pressureValue.translatesAutoresizingMaskIntoConstraints = false
-        pressureValue.topAnchor.constraint(equalTo: pressure.bottomAnchor, constant: 10).isActive = true
-        pressureValue.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-        
-        windSpeed.translatesAutoresizingMaskIntoConstraints = false
-        windSpeed.topAnchor.constraint(equalTo: pressureValue.bottomAnchor, constant: 30).isActive = true
-        windSpeed.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        
-        windSpeedValue.translatesAutoresizingMaskIntoConstraints = false
-        windSpeedValue.topAnchor.constraint(equalTo: windSpeed.bottomAnchor, constant: 10).isActive = true
-        windSpeedValue.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+        NSLayoutConstraint.activate([
+            weatherImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            weatherImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            weatherImage.widthAnchor.constraint(equalToConstant: 150),
+            weatherImage.heightAnchor.constraint(equalToConstant: 150)])
+        NSLayoutConstraint.activate([
+            titleStackView.topAnchor.constraint(equalTo: weatherImage.topAnchor),
+            titleStackView.leadingAnchor.constraint(equalTo: weatherImage.trailingAnchor),
+            titleStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            titleStackView.bottomAnchor.constraint(equalTo: weatherImage.bottomAnchor)])
+        NSLayoutConstraint.activate([
+            temp.topAnchor.constraint(equalTo: weatherImage.bottomAnchor, constant: 30),
+            temp.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)])
+        NSLayoutConstraint.activate([
+            tempStackView.topAnchor.constraint(equalTo: temp.bottomAnchor, constant: 10),
+            tempStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)])
+        NSLayoutConstraint.activate([
+            currentHumidity.topAnchor.constraint(equalTo: tempStackView.bottomAnchor, constant: 30),
+            currentHumidity.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)])
+        NSLayoutConstraint.activate([
+            currentHumidityValue.topAnchor.constraint(equalTo: currentHumidity.bottomAnchor, constant: 10),
+            currentHumidityValue.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)])
+        NSLayoutConstraint.activate([
+            pressure.topAnchor.constraint(equalTo: currentHumidityValue.bottomAnchor, constant: 30),
+            pressure.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)])
+        NSLayoutConstraint.activate([
+            pressureValue.topAnchor.constraint(equalTo: pressure.bottomAnchor, constant: 10),
+            pressureValue.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)])
+        NSLayoutConstraint.activate([
+            windSpeed.topAnchor.constraint(equalTo: pressureValue.bottomAnchor, constant: 30),
+            windSpeed.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)])
+        NSLayoutConstraint.activate([
+            windSpeedValue.topAnchor.constraint(equalTo: windSpeed.bottomAnchor, constant: 10),
+            windSpeedValue.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)])
     }
 }

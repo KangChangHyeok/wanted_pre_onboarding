@@ -13,6 +13,7 @@ class FirstViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -20,9 +21,9 @@ class FirstViewController: UIViewController {
         return tableView
     }()
     
-    let networkManager = NetworkManager()
-    var cityWeatherDatas = [CityWeatherData?]()
-    var cityWeatherImages = [UIImage]()
+    private let networkManager = NetworkManager()
+    private var cityWeatherDatas = [CityWeatherData?]()
+    private var cityWeatherImages = [UIImage]()
     
     //MARK: - override Method
     
@@ -33,15 +34,17 @@ class FirstViewController: UIViewController {
         setupData()
     }
     
+    //MARK: - setup
+    
     func setupView() {
         self.view.addSubview(tableView)
     }
     func setupLayout() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+                                     tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+                                     tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                                     tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)])
+        
     }
     func setupData() {
         networkManager.getCityWeatherDatas { cityWeatherDatas, images  in
@@ -53,6 +56,8 @@ class FirstViewController: UIViewController {
         }
     }
 }
+
+//MARK: - extension
 
 extension FirstViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

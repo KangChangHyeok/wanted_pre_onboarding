@@ -66,10 +66,10 @@
 				273B110028D006D800CCD0A7 /* SceneDelegate.swift */,
 				273B111228D006F400CCD0A7 /* Model */,
 				273B111328D006F900CCD0A7 /* ViewController */,
+				273B111E28D17BCF00CCD0A7 /* Cell */,
 				273B110728D006D800CCD0A7 /* Assets.xcassets */,
 				273B110928D006D800CCD0A7 /* LaunchScreen.storyboard */,
 				273B110C28D006D800CCD0A7 /* Info.plist */,
-				273B111828D0653E00CCD0A7 /* TableViewCell.swift */,
 			);
 			path = WeatherAPI_Project;
 			sourceTree = "<group>";
@@ -77,8 +77,8 @@
 		273B111228D006F400CCD0A7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				273B111428D061AB00CCD0A7 /* CityWeatherData.swift */,
 				273B111628D0620F00CCD0A7 /* NetworkManager.swift */,
+				273B111428D061AB00CCD0A7 /* CityWeatherData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -90,6 +90,14 @@
 				273B111C28D0BC4F00CCD0A7 /* SecondViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		273B111E28D17BCF00CCD0A7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				273B111828D0653E00CCD0A7 /* TableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -4,10 +4,8 @@
 //
 //  Created by 강창혁 on 2022/09/13.
 //
-
 import Foundation
 import UIKit
-
 
 struct NetworkManager {
     
@@ -15,8 +13,8 @@ struct NetworkManager {
         let cityNames: [String] = ["Gongju","Gwangju","Gumi","Gunsan","Daegu","Daejeon","Mokpo","Busan","Seosan","Seoul","Suwon","Suncheon","Ulsan","Iksan","Jeonju","Jeju","Cheonan","Cheongju","Chuncheon"]
         var cityWeatherDatas = [CityWeatherData?]()
         var cityWeatherImages = [UIImage]()
-        for cityName in cityNames {
-            let weatherURL = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(cityName)&appid=8f6e8afd2e9509eb87d30e402e7d5cbb")!
+        cityNames.forEach {
+            let weatherURL = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\($0)&appid=8f6e8afd2e9509eb87d30e402e7d5cbb")!
             URLSession.shared.dataTask(with: weatherURL) { data, response, error in
                 if error != nil {
                     print(error!)
@@ -40,8 +38,7 @@ struct NetworkManager {
                 }
             }.resume()
         }
-    }
-    
+}
     func parseJSON(_ weatherData: Data) -> CityWeatherData? {
         do {
             let decoder = JSONDecoder()
